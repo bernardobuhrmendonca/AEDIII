@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class Writer {
 
+
     private BufferedWriter writer;
     private File file;
     private FileWriter fileWriter;
@@ -22,12 +23,16 @@ public class Writer {
     return true;
     }
 
-    public boolean write(int text) {
+    
+
+    public boolean write(int[] text) {
         try {
             fileWriter = new FileWriter(file);
             writer = new BufferedWriter(fileWriter);
-            writer.write(text);
-            writer.newLine();
+            for (int i = 0; i < text.length; i++) {
+                writer.write(text[i]);
+                writer.newLine();
+            }
         } catch (IOException err) {
             err.printStackTrace();
             return false;
