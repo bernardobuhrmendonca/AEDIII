@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Matriz {
     public static void main(String[] args) {
       Scanner teclado = new Scanner (System.in);
-      int h, v, mh, mv;
+      int h, v, mh = 0, mv;
       Writer w = new Writer();
       Reader r = new Reader();
       String pathname;
@@ -18,19 +18,22 @@ public class Matriz {
       System.out.println("Indique a dimensão vertical da matriz.");
       v = teclado.nextInt();
 
+      int [][] matriz = new int[h][v];
+
       try {
-        w.createFile(pathname);
+        w.creatFile(pathname);
         w.writeI(h,pathname);
         w.writeI(v,pathname);
       } catch(Exception e) {
         System.err.println("Erro de escrita.");
       }
       
-      while(mh != 00) {
-        System.out.println("Indique a coordenada horizontal do endereço que deve ser zerado. Para encerrar a alteração digite 00.");
+      while(mh != -1) {
+        System.out.println("Indique a coordenada horizontal do endereço que deve ser zerado. Para encerrar a alteração digite -1.");
         mh = teclado.nextInt();
         System.out.println("Indique a coordenada vertical do endereço que deve ser zerado.");
         mv = teclado.nextInt();
+        teclado.nextLine();
 
         try {
           w.writeI(mh,pathname);
@@ -40,26 +43,31 @@ public class Matriz {
         }
       }
 
-      int matrizA[][] = new int[r.read(pathname)][r.read(pathname)];
-      
-      while(w.bf.newLine() != null) {
-        matriz[r.read(pathname)][r.read(pathname)] = 0;
-      }
       for(int i = 0; i < matriz[h].length; i++) {
         for(int j = 0; j < matriz[v].length; j++) {
-          if (matriz[i][j] == null) {
             matriz[i][j] = 1;
-          }
         }
       }
 
-      w.createFile(output);
+      while(r.read(pathname) != -1) {
+        matriz[r.read(pathname)][r.read(pathname)] = 0;
+      }
+
+      System.out.println("Indique o nome do arquivo de saída.");
+      output = teclado.nextLine();
+
+      w.creatFile(output);;
       
       for(int i = 0; i < matriz[v].length; i++) {
         for(int j = 0; j < matriz[h].length; j++) {
-          w.writeI(matriz[h][v],output);
+          w.writeI(matriz[j][i], output);
         }
-        w.bw.newLine();
+        try {
+          w.bw.newLine();
+        } catch(Exception e) {
+          System.err.println("Linha não saltada.");
+        }
       }
+      teclado.close();
     }
 }

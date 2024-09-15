@@ -1,7 +1,6 @@
 package ex04;
 
-import java.io.BufferedWriter;
-import java.security.KeyStore.TrustedCertificateEntry;
+import java.io.*;
 
 public class Writer {
   BufferedWriter bw;

@@ -1,7 +1,8 @@
 package ex04;
 
 
-import java.io.BufferedReader;
+import java.io.*;
+
 
 public class Reader {
   BufferedReader br;
@@ -16,6 +17,7 @@ public class Reader {
       return line;
     } catch (Exception e){
       System.err.println("Erro de leitura.");
+      return line;
     }
   }
 } 
